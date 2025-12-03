@@ -10,10 +10,10 @@ def mask_account_card(type_account_card: str) -> str:
 
     if len(string_account_card[-1]) == 20:  # Это счет (20 цифр)
         masked_number = get_mask_account(string_account_card[-1])
-        mask_result = f'Счет **{masked_number}'
+        mask_result = f"Счет **{masked_number}"
     else:  # Это карта (16 цифр)
         masked_number = get_mask_card_number(string_account_card[-1])
-        mask_result = f'{' '.join(string_account_card[:-1])} {masked_number}'
+        mask_result = f"{' '.join(string_account_card[:-1])} {masked_number}"
     return mask_result
 
 
@@ -24,6 +24,7 @@ def get_date(date_str: str) -> str:
 
     # Форматируем в нужный формат
     return dt.strftime("%d.%m.%Y")
+
 
 # Примеры входных данных для проверки функции маскировки
 # print(mask_account_card('Visa Platinum 7000792289606361'))
