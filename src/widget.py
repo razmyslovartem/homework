@@ -1,18 +1,32 @@
+from datetime import datetime
+
+from masks import get_mask_card_number, get_mask_account
+
 def mask_account_card(type_account_card: str) -> str:
+    """Функция, которая маскирует номер карты или счета."""
     string_account_card = type_account_card.split()
-    if len(string_account_card[-1]) == 20:
-        mask_result = f'Счет **{string_account_card[-1][-4:]}'
-    else:
-        mask_result = f'{' '.join(string_account_card[:-1])} {string_account_card[-1][:4]} {string_account_card[-1][4:6]}** **** {string_account_card[-1][-4:]}'
+
+    if len(string_account_card[-1]) == 20:  # Это счет (20 цифр)
+        masked_number = get_mask_account(string_account_card[-1])
+        mask_result = f'Счет **{masked_number}'
+    else:  # Это карта (16 цифр)
+        masked_number = get_mask_card_number(string_account_card[-1])
+        mask_result = f'{' '.join(string_account_card[:-1])} {masked_number}'
     return mask_result
 
-# Примеры входных данных для проверки функции
+def get_date(date_str: str) -> str:
+    """Функция, которая меняет формат даты ISO 8601 на 'ДД.ММ.ГГГГ'."""
+    # Преобразуем строку в объект datetime
+    dt = datetime.fromisoformat(date_str)
+
+    # Форматируем в нужный формат
+    return dt.strftime("%d.%m.%Y")
+
+# Примеры входных данных для проверки функции маскировки
+# print(mask_account_card('Visa Platinum 7000792289606361'))
+# print(mask_account_card('Maestro 7000792289606361'))
 # print(mask_account_card('Счет 73654108430135874305'))
-# print(mask_account_card('Maestro 1596837868705199'))
-# print(mask_account_card('Счет 64686473678894779589'))
-# print(mask_account_card('MasterCard 7158300734726758'))
-# print(mask_account_card('Счет 35383033474447895560'))
-# print(mask_account_card('Visa Classic 6831982476737658'))
-# print(mask_account_card('Visa Platinum 8990922113665229'))
-# print(mask_account_card('Visa Gold 5999414228426353'))
-# print(mask_account_card('Счет 73654108430135874305'))
+
+# Пример входных данных для проверки функции замены формата даты
+# print(get_date("2024-03-11T02:26:18.671407"))
+
