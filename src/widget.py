@@ -1,6 +1,8 @@
 from datetime import datetime
 
-from masks import get_mask_card_number, get_mask_account
+from masks import get_mask_account
+from masks import get_mask_card_number
+
 
 def mask_account_card(type_account_card: str) -> str:
     """Функция, которая маскирует номер карты или счета."""
@@ -13,6 +15,7 @@ def mask_account_card(type_account_card: str) -> str:
         masked_number = get_mask_card_number(string_account_card[-1])
         mask_result = f'{' '.join(string_account_card[:-1])} {masked_number}'
     return mask_result
+
 
 def get_date(date_str: str) -> str:
     """Функция, которая меняет формат даты ISO 8601 на 'ДД.ММ.ГГГГ'."""
@@ -29,4 +32,3 @@ def get_date(date_str: str) -> str:
 
 # Пример входных данных для проверки функции замены формата даты
 # print(get_date("2024-03-11T02:26:18.671407"))
-
